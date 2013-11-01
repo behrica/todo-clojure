@@ -18,4 +18,8 @@
     (values [{:TITLE title :DATE (java.sql.Date. (to-long date))}]))
 )
 
+(defn todos []
+  (select TODOS)
+)
+
 
