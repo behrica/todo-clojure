@@ -2,6 +2,7 @@
   (:use compojure.core)
   (:use ring.middleware.json-params)
   (:use todo.core)
+  (:use ring.adapter.jetty)
 
   (:require [clj-json.core :as json])
   (:require [todo.db :refer :all ])
@@ -22,6 +23,7 @@
   (GET "/rest/todos" []
     (json-response (transform-todos (todo.db/todos))))
   (route/resources "/" )
+  (route/not-found "404 Not Found")
 )
 
 (def app
