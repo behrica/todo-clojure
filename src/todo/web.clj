@@ -8,7 +8,7 @@
 )
 
 (defn transform-todos [todo-list]
-  (map #(struct todo (:TITLE %) (str (:DATE %)) ) (todo-list))
+  (map #(struct todo (:TITLE %) (str (:DATE %)) ) todo-list)
 )
 
 (defn json-response [data & [status]]
@@ -18,7 +18,7 @@
 
 (defroutes handler
   (GET "/" []
-    (json-response (transform-todos todo.db/todos)))
+    (json-response (transform-todos (todo.db/todos))))
 
   (PUT "/" [name]
     (json-response {"hello" name})))
