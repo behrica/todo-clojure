@@ -1,6 +1,8 @@
 (ns todo.run)
 
-;(use 'ring.adapter.jetty)
-;(require '[todo.web :as web])
+(use 'ring.adapter.jetty)
+(require '[todo.web :as web])
 
-;(run-jetty #'web/app {:port 8080})
+(defn startTodoApp []
+  (run-jetty #'web/app {:port 8080})
+)
