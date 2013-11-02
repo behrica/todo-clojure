@@ -5,6 +5,8 @@
 
   (:require [clj-json.core :as json])
   (:require [todo.db :refer :all ])
+  (:require [compojure.route :as route])
+
 )
 
 (defn transform-todos [todo-list]
@@ -17,11 +19,10 @@
    :body (json/generate-string data)})
 
 (defroutes handler
-  (GET "/" []
+  (GET "/rest/todos" []
     (json-response (transform-todos (todo.db/todos))))
-
-  (PUT "/" [name]
-    (json-response {"hello" name})))
+  (route/resources "/" )
+)
 
 (def app
   (-> handler

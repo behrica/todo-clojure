@@ -10,17 +10,17 @@
                  [clj-liquibase "0.4.0"]
                  [clj-dbcp "0.8.0"]
                  [clj-jdbcutil "0.1.0"]
-                 [ring/ring-jetty-adapter "0.2.5"]
-                      [ring-json-params "0.1.0"]
-                      [compojure "0.4.0"]
-                      [clj-json "0.3.2"]
+                 [ring "1.2.1"]
+                 [ring-json-params "0.1.3"]
+                 [compojure "1.1.6"]
+                 [clj-json "0.3.2"]
                  ]
   :main ^:skip-aot todo.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}
              :dev {
                     :dependencies [[midje "1.5.1"][clj-ns-browser "1.3.1"]]
-                    :plugins [[lein-midje "3.1.1"]
+                    :plugins [[lein-midje "3.1.1"][lein-ancient "0.5.2"]
                               ]}
              }
 )
