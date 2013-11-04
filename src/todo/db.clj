@@ -2,6 +2,7 @@
   (:use [korma.db :refer :all]
         [korma.core :refer :all]
         [todo.core :refer :all]
+        [todo.dbschema :refer :all]
         [clj-time.core :only [date-time]]
         [clj-time.coerce :only [to-long]]
         )
@@ -11,7 +12,7 @@
 (def db (h2 {:db "/tmp/korma.db"}))
 (defdb korma-db db)
 (defentity TODOS)
-
+(update-db)
 
 (defn add-todo [{:keys [title date]}]
   (insert TODOS
