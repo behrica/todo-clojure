@@ -15,20 +15,20 @@ describe("A suite", function() {
         $httpBackend = $injector.get('$httpBackend');
     }));
 
-    it('should call allRequests', inject(function($rootScope, $controller,$injector) {
+    it('should call allRequests', inject(function($rootScope, $controller) {
         var $scope = $rootScope.$new();
 
-//        $httpBackend.expectGET('/vlib/rest/requests',
-//            {"Accept":"application/json, text/plain, */*"}).respond(201,
-//                [{"id":"1","title":"my title"}]
-//            );
+        $httpBackend.expectGET('/rest/todos',
+            {"Accept":"application/json, text/plain, */*","X-Requested-With":"XMLHttpRequest"}).respond(201,
+                [{"title":"newTitle","date":"2020-01-01"},{"title":"newTitle","date":"2020-01-01"}]
+            );
         $controller('TodoCtrl', {$scope: $scope});
 
-        //$httpBackend.flush();
+        $httpBackend.flush();
 
-        var requests = $scope.todos;
-        //expect(requests[0].id).toBe("1")
-        //expect(requests[0].title).toBe("my title")
+        var todos = $scope.todos;
+        expect(todos[0].date).toBe("2020-01-01");
+        expect(todos[0].title).toBe("newTitle");
 
     }));
 

@@ -1,6 +1,7 @@
-var todoApp = angular.module('todoApp', []);
+var todoApp = angular.module('todoApp', ['todoApp.resources']);
 
-todoApp.controller('TodoCtrl', function TodoCtrl($scope) {
-    $scope.todos = [1,2,3]
-
+todoApp.controller('TodoCtrl', function TodoCtrl($scope,Todos) {
+    $scope.todos = Todos.query(null, angular.noop, function () {
+            throw new Error("query failed")
+        });
 });
