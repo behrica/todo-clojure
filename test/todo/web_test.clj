@@ -25,7 +25,10 @@
     (:status (client/get "http://localhost:8080/rest/todos")) => 200)
   (fact "should give answer on 'index'"
     (:status (client/get "http://localhost:8080/index.html")) => 200)
-)
+  (fact "should give answer on 'todo'"
+    (:status (client/post "http://localhost:8080/rest/todo")) => 200)
+
+  )
 
 (fact "should transform date-time to string"
   (todo.web/transform-todos [{:TITLE "atitle" :DATE (clj-time.core/date-time 2000 01 01)}]) => [{:date "2000-01-01T00:00:00.000Z", :title "atitle"}]

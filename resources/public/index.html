@@ -6,8 +6,12 @@
     <script src="js/resources.js" ></script>
     <script src="js/controller.js" ></script>
   </head>
-  <body>
-    <div ng-controller="TodoCtrl">
+  <body ng-controller="TodoCtrl">
+    <form ng-submit="addTodo()">
+        <input ng-bind="todoTitle" type="text">
+        <input type="submit" ng-model="todoTitle">
+    </form>
+    <div >
         <ul>
            <li ng-repeat="todo in todos" >
                {{todo.title}} - {{todo.date}}

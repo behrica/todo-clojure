@@ -32,6 +32,30 @@ describe("A suite", function() {
 
     }));
 
+    it('should call put on addTodo ', inject(function($rootScope, $controller) {
+        var $scope = $rootScope.$new();
+
+        $httpBackend.expectGET('/rest/todos',
+            {"Accept":"application/json, text/plain, */*","X-Requested-With":"XMLHttpRequest"}).respond(201,
+                []
+            );
+
+        $httpBackend.expectPOST('/rest/todo',
+            null,
+            {"Accept":"application/json, text/plain, */*","X-Requested-With":"XMLHttpRequest","Content-Type":"application/json;charset=utf-8"}).respond(201,
+                null
+            );
+        $controller('TodoCtrl', {$scope: $scope});
+
+        $scope.addTodo();
+        $httpBackend.flush();
+
+        //var todos = $scope.todos;
+        //expect(todos.length).toBe(3);
+
+    }));
+
+
     afterEach(function() {
         $httpBackend.verifyNoOutstandingExpectation();
         $httpBackend.verifyNoOutstandingRequest();

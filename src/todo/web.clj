@@ -22,6 +22,9 @@
 (defroutes handler
   (GET "/rest/todos" []
     (json-response (transform-todos (todo.db/todos))))
+  (POST "/rest/todo" []
+    (json-response ""))
+
   (route/resources "/" )
   (route/not-found "404 Not Found")
 )
