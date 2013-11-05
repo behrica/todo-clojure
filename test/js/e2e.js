@@ -7,9 +7,9 @@ describe('todo homepage', function() {
 
       var input = by.input("todoTitle");
       element(input).sendKeys("submittedNewTitle");
-    element(by.tagName("form")).click();
+    element(by.name("submit")).click();
 
-    //expect(element(todos.row(2)).getText()).toEqual("submittedNewTitle - 2020-01-02");
+    expect(element(todos.row(2)).getText()).toEqual("submittedNewTitle - 2012-01-01");
 
   });
 });

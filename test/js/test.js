@@ -41,12 +41,19 @@ describe("A suite", function() {
             );
 
         $httpBackend.expectPOST('/rest/todo',
-            null,
+            {"title":"newTitle"},
             {"Accept":"application/json, text/plain, */*","X-Requested-With":"XMLHttpRequest","Content-Type":"application/json;charset=utf-8"}).respond(201,
                 null
             );
+
+        $httpBackend.expectGET('/rest/todos',
+            {"Accept":"application/json, text/plain, */*","X-Requested-With":"XMLHttpRequest"}).respond(201,
+                []
+            );
+
         $controller('TodoCtrl', {$scope: $scope});
 
+        $scope.todoTitle = "newTitle";
         $scope.addTodo();
         $httpBackend.flush();
 

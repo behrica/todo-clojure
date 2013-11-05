@@ -3,7 +3,7 @@
   (:use ring.middleware.json-params)
   (:use todo.core)
   (:use ring.adapter.jetty)
-
+  (:use clj-time.core )
   (:require [clj-json.core :as json])
   (:require [todo.db :refer :all ])
   (:require [compojure.route :as route])
@@ -22,7 +22,8 @@
 (defroutes handler
   (GET "/rest/todos" []
     (json-response (transform-todos (todo.db/todos))))
-  (POST "/rest/todo" []
+  (POST "/rest/todo" [title]
+    (todo.db/add-todo (struct todo title (date-time 2012 01 01)))
     (json-response ""))
 
   (route/resources "/" )
