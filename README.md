@@ -7,6 +7,9 @@ A demo "to-do list" application to combine lots of interesting technologies:
 * Leiningen
 * Bower
 * Protractor
+* Liquibase
+* Midje
+* REST
 
 ## Build all
  $ rm -rf target; lein do clean, install, midje, karma, run -m todo.it
