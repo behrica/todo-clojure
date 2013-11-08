@@ -23,14 +23,16 @@
   :plugins [[lein-midje "3.1.1"]
             [lein-ancient "0.5.2"]
             [lein-shell "0.3.0"]
-            [lein-ring "0.8.8"]
+            [lein-ring "0.8.9-SNAPSHOT"]
             [lein-karma "0.1.0"]
             [lein-protractor "0.1.0-SNAPSHOT"]
-            ;;[lein-selenium "0.1.0-SNAPSHOT"]
             ]
-  ;:target-path "target/%s"
   :profiles {:uberjar {:aot :all}}
   :ring {:handler todo.web/app}
+  :protractor {:init todo.db/init-db
+               :chromedriver "/home/carsten/bin/chromedriver"
+               :protractorconfig "resources/protractor_conf.js"
+               }
   :aliases {"build" ["do" "clean," "install," "midje," "karma," "protractor"]}
 
 )
