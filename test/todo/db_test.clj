@@ -6,10 +6,8 @@
             [todo.core :refer :all ]
             [clj-time.core :only [date-time]]
             [clj-time.coerce :only [to-long]]
-            )
-  (:use [midje.sweet :refer :all ])
-  (:import java.sql.Date)
-  )
+            [midje.sweet :refer :all ])
+  (:import java.sql.Date))
 
 (def a-date (clj-time.core/date-time 2020 01 01) )
 

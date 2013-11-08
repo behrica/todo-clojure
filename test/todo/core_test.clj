@@ -1,10 +1,8 @@
 (ns todo.core-test
   (:require [clojure.test :refer :all]
-            [todo.core :refer :all])
-  (:use     [midje.sweet :refer :all]
-            [clj-time.core :only [date-time]]
-            )
-)
+            [todo.core :refer :all]
+             [midje.sweet :refer :all]
+            [clj-time.core :refer [date-time]]))
 
 (def t1 (struct todo "work1" (date-time 2000 1 1)))
 (def t2 (struct todo "work2" (date-time 2000 1 1)))

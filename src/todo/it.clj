@@ -5,30 +5,24 @@
               [todo.core :refer :all ]
               [clj-time.core :only [date-time]]
               [clj-time.coerce :only [to-long]]
-
-              )
+              [clojure.java.shell :refer [sh]]
+              [ring.adapter.jetty :refer :all]
+              [todo.web :refer :all]
+              [todo.db :refer :all]
+  )
   (:import org.openqa.selenium.server.SeleniumServer)
-  (:use [clojure.java.shell :only [sh]])
-  (:use ring.adapter.jetty)
-  (:use todo.web)
-  (:use todo.db)
   )
 
-(defn- init-db []
-  (delete TODOS)
-  (add-todo (struct todo "newTitle" (clj-time.core/date-time 2020 01 01)))
-  (add-todo (struct todo "newTitle" (clj-time.core/date-time 2020 01 02)))
-)
 
 (defn -main [& [port]]
   (init-db)
   (System/setProperty "webdriver.chrome.driver" "/home/carsten/bin/chromedriver")
-  (let [server (org.openqa.selenium.server.SeleniumServer.)]
-    (.start server)
+  (let [selenium-server (org.openqa.selenium.server.SeleniumServer.)]
+    (.start selenium-server)
     (let [appServer (run-jetty #'app {:port 8080 :join? false :daemon? true})]
       (println (:out (sh "protractor" "resources/protractor_conf.js")))
       (.stop appServer)
-      (.stop server)
+      (.stop selenium-server)
       (System/exit 0)
       )
     )

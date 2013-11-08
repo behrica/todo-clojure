@@ -4,9 +4,8 @@
     [clj-liquibase.change :as ch]
     [clj-liquibase.cli    :as cli]
     [clj-jdbcutil.core    :as sp]
-    )
-  (:use
-    [clj-liquibase.core :only (defchangelog update with-lb)]))
+    [clj-liquibase.core :refer [defchangelog update with-lb]]
+    ))
 
 (defchangelog app-changelog "todo" [
 ["id=1" "author=behrica" [(ch/create-table :TODOS [[:id :int :null false :pk true :autoinc true]])]]

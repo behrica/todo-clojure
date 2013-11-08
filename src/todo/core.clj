@@ -1,5 +1,7 @@
 (ns todo.core
-  (:use [clojure.string :only [split]] [clj-time.core :only [date-time month year]])
+  (:require
+    [clojure.string :refer [split]]
+    [clj-time.core :refer [date-time month year]])
 )
 
 (defstruct todo :title :date)

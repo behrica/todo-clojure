@@ -1,14 +1,13 @@
 (ns todo.web
-  (:use compojure.core)
-  (:use ring.middleware.json-params)
-  (:use todo.core)
-  (:use ring.adapter.jetty)
-  (:use clj-time.core )
-  (:require [clj-json.core :as json])
-  (:require [todo.db :refer :all ])
-  (:require [compojure.route :as route])
-
-)
+  (:require [compojure.core :refer :all]
+            [ring.middleware.json-params :refer :all]
+            [todo.core :refer :all]
+            [ring.adapter.jetty :refer :all]
+            [clj-json.core :as json]
+            [todo.db :refer :all ]
+            [compojure.route :as route]
+            [clj-time.core :refer [date-time]]
+))
 
 (defn transform-todos [todo-list]
   (map #(struct todo (:TITLE %) (str (:DATE %)) ) todo-list)

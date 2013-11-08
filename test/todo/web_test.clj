@@ -4,11 +4,9 @@
               [todo.web :refer :all]
               [ring.adapter.jetty :refer :all :as jetty]
               [clj-http.lite.client :as client]
-              [clj-time.core :refer :all]
-              )
-    (:use [midje.sweet :refer :all ])
-  (:import [org.mortbay.jetty.Server])
-)
+              [clj-time.core :refer [date-time]]
+              [midje.sweet :refer :all ])
+  (:import [org.mortbay.jetty.Server]))
 
 (defonce server (jetty/run-jetty #'todo.web/app {:port 8080 :join? false}))
 
@@ -18,7 +16,6 @@
 (defn stopServer []
   (.stop server)
 )
-
 
 
 (with-state-changes [(before :facts (startServer))
@@ -32,10 +29,7 @@
 
   (fact "should call add-todo when /rest/todo is requested"
     (:body (todo.web/handler {:request-method :post :uri "/rest/todo" :params {:title "t123"}})) => "\"\""
-    (provided (todo.db/add-todo {:title "t123", :date (date-time 2012 01 01)}) => nil)
-  )
-
-  )
+    (provided (todo.db/add-todo {:title "t123", :date (date-time 2012 01 01)}) => nil)))
 
 
 (fact "should transform date-time to string"
