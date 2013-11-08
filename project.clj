@@ -14,23 +14,23 @@
                  [ring-json-params "0.1.3"]
                  [compojure "1.1.6"]
                  [clj-json "0.5.3"]
+                 [org.seleniumhq.selenium/selenium-server "2.29.1"]
+                 [midje "1.5.1"]
+                 [clj-ns-browser "1.3.1"]
+                 [org.apache.httpcomponents/httpcore "4.2.3"]
                  ]
   :main ^:skip-aot todo.core
-  :target-path "target/%s"
-  :profiles {:uberjar {:aot :all}
-             :dev {
-                    :dependencies [[midje "1.5.1"]
-                                   [clj-ns-browser "1.3.1"]
-                                   [org.seleniumhq.selenium/selenium-server "2.29.1"]
-                                   [org.apache.httpcomponents/httpcore "4.2.3"]
-                                   ]
-                    :plugins [[lein-midje "3.1.1"]
-                              [lein-ancient "0.5.2"]
-                              [lein-shell "0.3.0"]
-                              [lein-ring "0.8.7"]
-                              [lein-karma "0.1.0"]
-                              ;;[lein-selenium "0.1.0-SNAPSHOT"]
-                              ]}
-             }
+  :plugins [[lein-midje "3.1.1"]
+            [lein-ancient "0.5.2"]
+            [lein-shell "0.3.0"]
+            [lein-ring "0.8.8"]
+            [lein-karma "0.1.0"]
+            [lein-protractor "0.1.0-SNAPSHOT"]
+            ;;[lein-selenium "0.1.0-SNAPSHOT"]
+            ]
+  ;:target-path "target/%s"
+  :profiles {:uberjar {:aot :all}}
   :ring {:handler todo.web/app}
+  :aliases {"build" ["do" "clean," "install," "midje," "karma," "protractor"]}
+
 )
