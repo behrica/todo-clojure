@@ -34,5 +34,5 @@
                :protractorconfig "resources/protractor_conf.js"
                }
   :aliases {"build" ["do" "clean," "install," "midje," "karma," "protractor"]}
-
+  :jvm-opts ["-Duser.timezone=UTC"]
 )

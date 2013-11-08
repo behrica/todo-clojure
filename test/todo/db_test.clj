@@ -24,6 +24,6 @@
 
 (with-state-changes [(before :facts (delete TODOS))]
   (fact "adding a todo result in one row in todos table"
-;    (addTodo) => [1 "newTitle" (java.sql.Date. (clj-time.coerce/to-long a-date))]
+    (addTodo) => [1 "newTitle" (java.sql.Date. (clj-time.coerce/to-long a-date))]
     ))
 
