@@ -8,17 +8,15 @@
 
 
 
-(defn- month-equal [todo a-month]
+(defn- month-equal? [todo a-month]
   (let [todo-date (:date todo)]
     (and
-      (= (month
-          todo-date)
-         (month a-month))
-      (= (year  todo-date) (year a-month))
+      (= (month todo-date) (month a-month))
+      (= (year todo-date) (year a-month))
       )
     )
 )
 
 (defn todos-in-month [todos month]
-  (filter #(month-equal % month) todos)
+  (filter #(month-equal? % month) todos)
 )

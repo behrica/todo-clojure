@@ -21,8 +21,18 @@
   (.stop server)
 )
 
+(fact "should transform date-time to string"
+   (todo.web/transform-todos [{:TITLE "atitle" :DATE (date-time 2000 01 01)}])
+      => [{ :date "2000-01-01T00:00:00.000Z", :title "atitle"}])
 
-(with-state-changes [(before :facts (do (delete TODOS)(startServer)))
+(fact "should call add-todo when /rest/todo is requested"
+  (:body (todo.web/handler {:request-method :post :uri "/rest/todos" :params {:title "t123"}})) => "123"
+  (provided (todo.db/add-todo { :title "t123", :date (date-time 2012 01 01)}) => 123))
+
+
+
+(with-state-changes [(before :facts (do (delete TODOS)
+                                        (startServer)))
                      (after :facts (stopServer))]
   (fact "should give answer on 'todos'"
     (:status (client/get "http://localhost:8080/rest/todos")) => 200)
@@ -30,17 +40,10 @@
     fact "should give answer on 'index'"
     (:status (client/get "http://localhost:8080/index.html")) => 200)
 
-  (fact "should call add-todo when /rest/todo is requested"
-    (:body (todo.web/handler {:request-method :post :uri "/rest/todos" :params {:title "t123"}})) => "123"
-    (provided (todo.db/add-todo { :title "t123", :date (date-time 2012 01 01)}) => 123))
-
   (fact "should give answer 201 on post to 'todos'"
     (:status (client/post "http://localhost:8080/rest/todos" {:content-type :json  })) => 201)
 
   (fact "should return id on post to 'todos'"
     (:body (client/post "http://localhost:8080/rest/todos" {:content-type :json })) => #"\d.*")
 
-  (fact "should transform date-time to string"
-     (todo.web/transform-todos [{:TITLE "atitle" :DATE (clj-time.core/date-time 2000 01 01)}])
-        => [{ :date "2000-01-01T00:00:00.000Z", :title "atitle"}])
 )
