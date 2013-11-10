@@ -7,6 +7,8 @@ A demo "to-do list" application to combine lots of interesting technologies:
 * Leiningen
 * Bower
 * Protractor
+* liquibase
+* korma
 
 ## Build all
  $ rm -rf target; lein build

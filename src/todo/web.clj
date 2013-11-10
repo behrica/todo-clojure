@@ -23,9 +23,7 @@
   (GET "/rest/todos" []
     (json-response (transform-todos (todo.db/todos))))
   (POST "/rest/todos" [title]
-
     (json-response (todo.db/add-todo (struct todo title (date-time 2012 01 01))) 201))
-
   (route/resources "/" )
   (route/not-found "404 Not Found")
 )

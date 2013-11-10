@@ -11,7 +11,9 @@
 (defn- month-equal [todo a-month]
   (let [todo-date (:date todo)]
     (and
-      (= (month todo-date) (month a-month))
+      (= (month
+          todo-date)
+         (month a-month))
       (= (year  todo-date) (year a-month))
       )
     )
