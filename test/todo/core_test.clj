@@ -4,10 +4,10 @@
              [midje.sweet :refer :all]
             [clj-time.core :refer [date-time]]))
 
-(def t1 (struct todo nil "work1" (date-time 2000 1 1)))
-(def t2 (struct todo nil "work2" (date-time 2000 1 1)))
-(def t3 (struct todo nil "work3" (date-time 2000 1 2)))
-(def t4 (struct todo nil "work4" (date-time 2000 2 2)))
+(def t1 (struct todo  "work1" (date-time 2000 1 1)))
+(def t2 (struct todo "work2" (date-time 2000 1 1)))
+(def t3 (struct todo "work3" (date-time 2000 1 2)))
+(def t4 (struct todo "work4" (date-time 2000 2 2)))
 (def m1 (date-time 2000 1 ))
 
 (fact
