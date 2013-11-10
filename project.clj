@@ -16,8 +16,8 @@
                  [clj-json "0.5.3"]
                  [org.seleniumhq.selenium/selenium-server "2.29.1"]
                  [midje "1.5.1"]
-                 [clj-ns-browser "1.3.1"]
-                 [org.apache.httpcomponents/httpcore "4.2.3"]
+                 ;[org.apache.httpcomponents/httpcore "4.2.3"]
+                  [clj-http "0.7.7"]
                  ]
   :main ^:skip-aot todo.core
   :plugins [[lein-midje "3.1.1"]

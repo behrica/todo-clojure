@@ -6,11 +6,12 @@
             [clj-json.core :as json]
             [todo.db :refer :all ]
             [compojure.route :as route]
-            [clj-time.core :refer [date-time]]
+            [clj-time.core :refer [date-time]
+             ]
 ))
 
 (defn transform-todos [todo-list]
-  (map #(struct todo (:TITLE %) (str (:DATE %)) ) todo-list)
+  (map #(struct todo (:UUID %) (:TITLE %) (str (:DATE %)) ) todo-list)
 )
 
 (defn json-response [data & [status]]
@@ -21,9 +22,9 @@
 (defroutes handler
   (GET "/rest/todos" []
     (json-response (transform-todos (todo.db/todos))))
-  (POST "/rest/todo" [title]
-    (todo.db/add-todo (struct todo title (date-time 2012 01 01)))
-    (json-response ""))
+  (POST "/rest/todo" [title uuid :as req]
+    (todo.db/add-todo (struct todo uuid title (date-time 2012 01 01)))
+    (json-response "" 201))
 
   (route/resources "/" )
   (route/not-found "404 Not Found")

@@ -10,6 +10,9 @@
 (defchangelog app-changelog "todo" [
 ["id=1" "author=behrica" [(ch/create-table :TODOS [[:id :int :null false :pk true :autoinc true]])]]
 ["id=2" "author=behrica" [(ch/add-columns :TODOS [[:TITLE [:varchar 40]][:DATE :date]])]]
+["id=3" "author=behrica" [(ch/add-columns :TODOS [[:UUID [:varchar 40 ] :null false]])
+                          (ch/add-unique-constraint :TODOS [:UUID] "uuid_unique")]
+                     ]
 ])
 
 

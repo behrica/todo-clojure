@@ -14,9 +14,9 @@
 (defentity TODOS)
 (update-db)
 
-(defn add-todo [{:keys [title date]}]
+(defn add-todo [{:keys [uuid title date]}]
   (insert TODOS
-    (values [{:TITLE title :DATE (java.sql.Date. (to-long date))}]))
+    (values [{:UUID uuid :TITLE title :DATE (java.sql.Date. (to-long date))}]))
 )
 
 (defn todos []

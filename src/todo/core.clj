@@ -4,7 +4,7 @@
     [clj-time.core :refer [date-time month year]])
 )
 
-(defstruct todo :title :date)
+(defstruct todo :uuid :title :date)
 
 
 
