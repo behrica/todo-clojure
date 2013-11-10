@@ -1,6 +1,6 @@
 var todoApp = angular.module('todoApp', ['todoApp.resources']);
 
-todoApp.controller('TodoCtrl', function TodoCtrl($scope,Todos,Todo) {
+todoApp.controller('TodoCtrl', function TodoCtrl($scope,Todos) {
     $scope.todoTitle= null;
     $scope.todos = retrieveTodos();
 
@@ -10,9 +10,8 @@ todoApp.controller('TodoCtrl', function TodoCtrl($scope,Todos,Todo) {
         });
     }
 
-
     $scope.addTodo = function() {
-         Todo.save({title:$scope.todoTitle},function() {
+         Todos.save({title:$scope.todoTitle},function() {
              $scope.todos = retrieveTodos();
          },angular.noop);
 

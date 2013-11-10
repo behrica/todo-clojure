@@ -40,7 +40,7 @@ describe("A suite", function() {
                 []
             );
 
-        $httpBackend.expectPOST('/rest/todo',
+        $httpBackend.expectPOST('/rest/todos',
             {"title":"newTitle"},
             {"Accept":"application/json, text/plain, */*","X-Requested-With":"XMLHttpRequest","Content-Type":"application/json;charset=utf-8"}).respond(201,
                 null

@@ -14,7 +14,7 @@
                           (ch/add-unique-constraint :TODOS [:UUID] "uuid_unique")]]
 ["id=4" "author=behrica" [(ch/drop-unique-constraint :TODOS "uuid_unique")]]
 ["id=5" "author=behrica" [(ch/drop-not-null-constraint :TODOS :UUID :column-data-type [:varchar 40])]]
-
+["id=6" "author=behrica" [(ch/drop-column :TODOS :UUID )]]
  ])
 
 
