@@ -13,8 +13,6 @@
 )
 
 
-
-
 (defn- month-equal? [todo a-month]
   (let [todo-date (:date todo)]
     (and

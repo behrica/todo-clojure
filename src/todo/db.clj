@@ -5,12 +5,20 @@
         [todo.dbschema :refer :all]
         [clj-time.core :refer [date-time]]
         [clj-time.coerce :refer [to-long]]
+        
         )
   (import java.sql.Date)
   )
 
-(def db (h2 {:db "/tmp/korma.db"}))
-(defdb korma-db db)
+;(def db (h2 {:db "/tmp/korma.db"}))
+
+(defdb db {:classname   "org.h2.Drivera"
+             :subprotocol "h2"
+             :subname "mem:test"
+             :user     "sa"
+             :password ""
+})
+
 (defentity TODOS)
 (update-db)
 

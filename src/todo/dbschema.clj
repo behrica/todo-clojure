@@ -18,7 +18,12 @@
  ])
 
 
-(def ds (cp/make-datasource  {:classname "org.h2.Driver" :jdbc-url "jdbc:h2:/tmp/korma.db"}))
+(def jdbc-url "jdbc:h2:mem:test")
+
+(def ds (cp/make-datasource  {:classname "org.h2.Driver" 
+                              :jdbc-url jdbc-url
+                              :username "sa"
+                              :password ""}))
 
 (defn update-db []
   (sp/with-connection {:datasource ds}
