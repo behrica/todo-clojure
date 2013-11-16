@@ -10,8 +10,12 @@
              ]
 ))
 
+(defn make-todo-for-json [{title :TITLE date :DATE}]
+  {:title title :date (str date)}
+)
+
 (defn transform-todos [todo-list]
-  (map #(struct todo (:TITLE %) (str (:DATE %)) ) todo-list)
+  (map make-todo-for-json todo-list)
 )
 
 (defn json-response [data & [status]]
@@ -23,7 +27,7 @@
   (GET "/rest/todos" []
     (json-response (transform-todos (todo.db/todos))))
   (POST "/rest/todos" [title]
-    (json-response (todo.db/add-todo (struct todo title (date-time 2012 01 01))) 201))
+    (json-response (todo.db/add-todo (new-todo title (date-time 2012 01 01))) 201))
   (route/resources "/" )
   (route/not-found "404 Not Found")
 )

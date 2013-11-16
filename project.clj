@@ -15,17 +15,18 @@
                  [compojure "1.1.6"]
                  [clj-json "0.5.3"]
                  [org.seleniumhq.selenium/selenium-server "2.29.1"]
-                 [midje "1.5.1"]
+                 [midje "1.6-beta1"]
                  ;[org.apache.httpcomponents/httpcore "4.2.3"]
                   [clj-http "0.7.7"]
+		 [lein-light-nrepl "0.0.9"] [org.clojure/tools.reader "0.7.10"]
                  ]
   :main ^:skip-aot todo.core
   :plugins [[lein-midje "3.1.1"]
             [lein-ancient "0.5.2"]
             [lein-shell "0.3.0"]
-            [lein-ring "0.8.9-SNAPSHOT"]
+            [lein-ring "0.8.8"]
             [lein-karma "0.1.0"]
-            [lein-protractor "0.1.0-SNAPSHOT"]
+            [lein-protractor "0.1.1-SNAPSHOT"]
             ]
   :profiles {:uberjar {:aot :all}}
   :ring {:handler todo.web/app}
@@ -35,4 +36,5 @@
                }
   :aliases {"build" ["do" "clean," "install," "midje," "karma," "protractor"]}
   :jvm-opts ["-Duser.timezone=UTC"]
+:repl-options {:nrepl-middleware [lighttable.nrepl.handler/lighttable-ops]}
 )

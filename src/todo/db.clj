@@ -26,9 +26,7 @@
 (defn init-db []
   (println "!! Initialize db for tests !!")
   (delete TODOS)
-  (add-todo (struct todo "newTitle" (clj-time.core/date-time 2020 01 01)))
-  (add-todo (struct todo "newTitle" (clj-time.core/date-time 2020 01 02)))
+  (add-todo (new-todo "newTitle" (clj-time.core/date-time 2020 01 01)))
+  (add-todo (new-todo "newTitle" (clj-time.core/date-time 2020 01 02)))
 )
-
-
 

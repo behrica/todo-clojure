@@ -12,7 +12,7 @@
 (def a-date (clj-time.core/date-time 2020 01 01) )
 
 (defn addTodo []
-  (add-todo (struct todo "newTitle" a-date))
+  (add-todo (new-todo "newTitle" a-date))
   (let [query-result (exec-raw ["SELECT * FROM TODOS"] :results )]
     [(count query-result)
      (:TITLE (first query-result))
