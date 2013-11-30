@@ -15,6 +15,11 @@
 ["id=4" "author=behrica" [(ch/drop-unique-constraint :TODOS "uuid_unique")]]
 ["id=5" "author=behrica" [(ch/drop-not-null-constraint :TODOS :UUID :column-data-type [:varchar 40])]]
 ["id=6" "author=behrica" [(ch/drop-column :TODOS :UUID )]]
+["id=7" "author=behrica" [(ch/create-table :TODOEVENT [[:id :int :null false :pk true :autoinc true]])]]
+["id=8" "author=behrica" [(ch/add-columns :TODOEVENT [[:TYPE [:varchar 255]]])]]
+["id=9" "author=behrica" [(ch/add-columns :TODOEVENT [[:EDN [:varchar 500]]])]]
+["id=10" "author=behrica" [(ch/drop-table :TODOS )]]
+
  ])
 
 

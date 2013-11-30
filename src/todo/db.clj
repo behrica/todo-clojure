@@ -5,7 +5,7 @@
         [todo.dbschema :refer :all]
         [clj-time.core :refer [date-time]]
         [clj-time.coerce :refer [to-long]]
-        
+        [todo.joda :refer [with-joda-time-reader]]
         )
   (import java.sql.Date)
   )
@@ -19,21 +19,30 @@
              :password ""
 })
 
-(defentity TODOS)
+(defentity TODOEVENT)
 (update-db)
 
-(defn add-todo [{:keys [title date]}]
-  (first (vals (insert TODOS
-    (values [{:TITLE title :DATE (java.sql.Date. (to-long date))}]))))
+(defn first-val [map]
+  (first (vals map))
+     )
+
+(defn add-todo [{:keys [title date] :as todo}]
+
+  (first-val (insert TODOEVENT (values [{:ID   nil
+                                         :TYPE "todo-created"
+                                         :EDN  (pr-str todo)
+                                         }])))
   )
 
+
 (defn todos []
-  (select TODOS)
-)
+  (with-joda-time-reader
+    (map #(read-string (:EDN %)) (select TODOEVENT))))
+
 
 (defn init-db []
   (println "!! Initialize db for tests !!")
-  (delete TODOS)
+  (delete TODOEVENT)
   (add-todo (new-todo "newTitle" (clj-time.core/date-time 2020 01 01)))
   (add-todo (new-todo "newTitle" (clj-time.core/date-time 2020 01 02)))
 )

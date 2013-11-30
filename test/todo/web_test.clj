@@ -32,7 +32,7 @@
 
 
 
-(with-state-changes [(before :facts (do (delete TODOS)
+(with-state-changes [(before :facts (do (delete TODOEVENT)
                                         (startServer)))
                      (after :facts (stopServer))]
   (fact "should give answer on 'todos'"

@@ -18,6 +18,7 @@
                  [midje "1.6-beta1"]
                  ;[org.apache.httpcomponents/httpcore "4.2.3"]
                   [clj-http "0.7.7"]
+
 		 [lein-light-nrepl "0.0.9"] [org.clojure/tools.reader "0.7.10"]
                  ]
   :main ^:skip-aot todo.core
