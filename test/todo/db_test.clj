@@ -12,9 +12,9 @@
 (def a-date (clj-time.core/date-time 2020 01 01) )
 
 (defn addTodo []
-  (add-todo (new-todo "newTitle" a-date))
+  ; )
   (let [query-result (exec-raw ["SELECT * FROM TODOS"] :results )]
-    [(count query-result)
+    [(count query-result) => 1
      (:TITLE (first query-result))
      (:DATE (first query-result))
      ]
@@ -23,7 +23,12 @@
 
 
 (with-state-changes [(before :facts (delete TODOS))]
-  (fact "adding a todo result in one row in todos table"
-    (addTodo) => [1 "newTitle" (java.sql.Date. (clj-time.coerce/to-long a-date))]
-    ))
+                    (fact "adding a todo result in one row in todos table"
+                          (add-todo (new-todo "newTitle" a-date)) => number?
+                          (let [query-result (exec-raw ["SELECT * FROM TODOS"] :results)]
+                            (count query-result) => 1
+                            (:TITLE (first query-result)) => "newTitle"
+                            (:DATE (first query-result)) => (java.sql.Date. (clj-time.coerce/to-long a-date))
+
+                            )))
 
