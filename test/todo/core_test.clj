@@ -16,11 +16,8 @@
   (todos-in-month [t1 t2] m1) => [t1 t2]
   (todos-in-month [t1 t2 t3] m1) => [t1 t2 t3]
   (todos-in-month [t1 t2 t3 t4] m1) => [t1 t2 t3]
-  (todos-in-month [] m1) => []
-)
+  (todos-in-month [] m1) => [])
 
 (fact "new-todo allows only date"
   (new-todo "" "10/2/2012") => (throws AssertionError)
-  (:date (new-todo "" (date-time 2012 1 1))) =>  (date-time 2012 1 1)
-
-)
+  (:date (new-todo "" (date-time 2012 1 1))) =>  (date-time 2012 1 1))

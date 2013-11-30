@@ -5,7 +5,7 @@
               [todo.db :refer :all]
               [ring.adapter.jetty :refer :all :as jetty]
               [clj-http.client :as client]
-              [clj-time.core :refer [date-time]]
+              [clj-time.core :refer [date-time today]]
               [midje.sweet :refer :all ]
               [clj-json.core :refer :all]
               [korma.core :refer :all]
@@ -27,7 +27,8 @@
 
 (fact "should call add-todo when /rest/todo is requested"
   (:body (todo.web/handler {:request-method :post :uri "/rest/todos" :params {:title "t123"}})) => "123"
-  (provided (todo.db/add-todo { :title "t123", :date (date-time 2012 01 01)}) => 123))
+  (provided (todo.db/add-todo { :title "t123", :date (date-time 1111 1 1)}) => 123
+  (today) => (date-time 1111 1 1)))
 
 
 

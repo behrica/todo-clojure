@@ -36,5 +36,6 @@
                }
   :aliases {"build" ["do" "clean," "install," "midje," "karma," "protractor"]}
   :jvm-opts ["-Duser.timezone=UTC"]
-:repl-options {:nrepl-middleware [lighttable.nrepl.handler/lighttable-ops]}
+  :repl-options {:nrepl-middleware [lighttable.nrepl.handler/lighttable-ops]}
 )
+
