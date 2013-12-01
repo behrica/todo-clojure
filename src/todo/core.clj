@@ -5,11 +5,13 @@
 )
 
 
-(defstruct todo :title :date)
+(defn uuid [] (java.util.UUID/randomUUID))
 
-(defn new-todo [title date]
+(defstruct todo :title :date :uuid)
+
+(defn new-todo [title date uuid]
   {:pre [(satisfies? DateTimeProtocol date)]}
-  (struct todo title date)
+  (struct todo title date uuid)
 )
 
 

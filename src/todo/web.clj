@@ -30,7 +30,7 @@
   (GET "/rest/todos" []
     (json-response (transform-todos (todo.db/todos))))
   (POST "/rest/todos" [title]
-    (json-response (todo.db/add-todo (new-todo title (now))) 201))
+    (json-response (todo.db/add-todo (new-todo title (now) (uuid))) 201 ))
   (route/resources "/" )
   (route/not-found "404 Not Found")
 )
