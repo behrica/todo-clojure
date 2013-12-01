@@ -35,4 +35,38 @@
                           )
 
                     )
+(with-state-changes [(before :facts
+                             (do
+                               (delete TODOEVENT)
+                               (insert TODOEVENT (values [{:ID 1 :TYPE "todo-created" :EDN "{:title \"newTitle\", :date #inst \"2020-01-01T00:00:00.000-00:00\"}"}])))
+                             )]
 
+                    (fact "delete todos adds delete event"
+                          (delete-todo 1)
+                          (select-keys (second (exec-raw ["SELECT * FROM TODOEVENT"] :results)) [:TYPE :EDN]) => {:TYPE "todo-deleted" :EDN "1" }
+                          ))
+
+
+(with-state-changes [(before :facts
+                             (do
+                               (delete TODOEVENT)
+                               (insert TODOEVENT (values [{:ID 1 :TYPE "todo-created" :EDN "{:title \"newTitle\", :date #inst \"2020-01-01T00:00:00.000-00:00\"}"}]))
+                               (insert TODOEVENT (values [{:ID 2 :TYPE "todo-deleted" :EDN "1"}])))
+                             )]
+
+                    (fact "select todos aggregates events created/delete"
+                          (todos) => []
+                          ))
+
+(with-state-changes [(before :facts
+                             (do
+                               (delete TODOEVENT)
+                               (insert TODOEVENT (values [{:ID 1 :TYPE "todo-created" :EDN "{:title \"newTitle-1\", :date #inst \"2020-01-01T00:00:00.000-00:00\"}"}]))
+                               (insert TODOEVENT (values [{:ID 2 :TYPE "todo-deleted" :EDN "1"}]))
+                               (insert TODOEVENT (values [{:ID 3 :TYPE "todo-created" :EDN "{:title \"newTitle-2\", :date #inst \"2020-01-01T00:00:00.000-00:00\"}"}])))
+
+                             )]
+
+                    (fact "select todos aggregates events created/delete/create"
+                          (todos) => [{:date #inst "2020-01-01T00:00:00.000-00:00", :title "newTitle-2"}]
+                          ))

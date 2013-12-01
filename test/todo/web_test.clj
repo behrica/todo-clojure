@@ -5,7 +5,7 @@
               [todo.db :refer :all]
               [ring.adapter.jetty :refer :all :as jetty]
               [clj-http.client :as client]
-              [clj-time.core :refer [date-time today]]
+              [clj-time.core :refer [date-time now]]
               [midje.sweet :refer :all ]
               [clj-json.core :refer :all]
               [korma.core :refer :all]
@@ -22,13 +22,13 @@
 )
 
 (fact "should transform date-time to string"
-   (todo.web/transform-todos [{:TITLE "atitle" :DATE (date-time 2000 01 01)}])
-      => [{ :date "2000-01-01T00:00:00.000Z", :title "atitle"}])
+   (todo.web/transform-todos [{:title "atitle" :date (date-time 2000 01 28)}])
+      => [{ :date "2000-01-28T00:00:00.000Z", :title "atitle"}])
 
 (fact "should call add-todo when /rest/todo is requested"
   (:body (todo.web/handler {:request-method :post :uri "/rest/todos" :params {:title "t123"}})) => "123"
   (provided (todo.db/add-todo { :title "t123", :date (date-time 1111 1 1)}) => 123
-  (today) => (date-time 1111 1 1)))
+  (now) => (date-time 1111 1 1)))
 
 
 

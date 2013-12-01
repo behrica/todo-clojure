@@ -6,10 +6,14 @@
             [clj-json.core :as json]
             [todo.db :refer :all ]
             [compojure.route :as route]
-            [clj-time.core :refer [date-time today]
-             ]))
+            [clj-time.core :refer [date-time now]]
+            [clj-time.format :refer [unparse formatters]]
+            [clojure.instant :as i]
+            ))
 
-(defn make-todo-for-json [{title :TITLE date :DATE}]
+
+
+(defn make-todo-for-json [{title :title date :date}]
   {:title title :date (str date)}
 )
 
@@ -26,7 +30,7 @@
   (GET "/rest/todos" []
     (json-response (transform-todos (todo.db/todos))))
   (POST "/rest/todos" [title]
-    (json-response (todo.db/add-todo (new-todo title (today))) 201))
+    (json-response (todo.db/add-todo (new-todo title (now))) 201))
   (route/resources "/" )
   (route/not-found "404 Not Found")
 )
