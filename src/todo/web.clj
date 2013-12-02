@@ -8,8 +8,7 @@
             [compojure.route :as route]
             [clj-time.core :refer [date-time now]]
             [clj-time.format :refer [unparse formatters]]
-            [clojure.instant :as i]
-            ))
+            [clojure.instant :as i]))
 
 
 

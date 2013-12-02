@@ -70,3 +70,15 @@
                     (fact "select todos aggregates events created/delete/create"
                           (todos) => [{:date #inst "2020-01-01T00:00:00.000-00:00", :title "newTitle-2", :uuid #uuid "781e34fc-4239-40d7-ab52-4b71b3d0d95d"}]
                           ))
+
+
+(with-state-changes [(before :facts
+                             (do
+                               (delete TODOEVENT)
+                               (insert TODOEVENT (values [{:ID 1 :TYPE "todo-created" :EDN "{:title \"newTitle\", :date #inst \"2020-01-01T00:00:00.000-00:00\", :uuid #uuid \"121e34fc-4239-40d7-ab52-4b71b3d0d95d\"}"}]))
+                               (insert TODOEVENT (values [{:ID 2 :TYPE "todo-changed" :EDN "{:title \"newTitle-modified\", :date #inst \"2099-01-01T00:00:00.000-00:00\", :uuid #uuid \"121e34fc-4239-40d7-ab52-4b71b3d0d95d\"}"}])))
+                             )]
+
+                    (fact "select todos aggregates events created/delete"
+                          (todos) => [{:date #inst "2099-01-01T00:00:00.000-00:00", :title "newTitle-modified", :uuid #uuid "121e34fc-4239-40d7-ab52-4b71b3d0d95d"}]
+                          ))

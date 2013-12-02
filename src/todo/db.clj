@@ -33,9 +33,6 @@
   (first (vals map))
   )
 
-(defn read-string-with-joda [s]
-  (with-joda-time-reader
-    (read-string s)))
 
 (defn add-todo [{:keys [title date] :as todo}]
 
@@ -51,20 +48,19 @@
                                }]))
   )
 
-(defn was-deleted? [id todo-events]
-  (not (empty? (filter #(and (= (:TYPE %) "todo-deleted")
-                             (= (read-string-with-joda (:EDN %)) id))
-                       todo-events)))
-
+(defn replace-todo [new-todo world]
+  (conj (remove #(= (:uuid %) (:uuid new-todo)) world) new-todo)
   )
 
 (defn apply-event-to-world [event world]
-  (condp = (:TYPE event)
-    "todo-created" (conj world (read-string (:EDN event)))
-    "todo-deleted" (let [id (read-string (:EDN event))]
-                     (remove #(= (:uuid %) id) world))))
-
-
+  (let [event-data (read-string (:EDN event))]
+    (condp = (:TYPE event)
+        "todo-created" (conj world event-data)
+        "todo-deleted" (remove #(= (:uuid %) event-data) world)
+        "todo-changed" (replace-todo event-data world)
+        )
+    )
+  )
 
 
 (defn aggregate-todos [todo-events world]

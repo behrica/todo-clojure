@@ -29,10 +29,7 @@
   (:body (todo.web/handler {:request-method :post :uri "/rest/todos" :params {:title "t123"}})) => "123"
   (provided (todo.db/add-todo { :title "t123", :date (date-time 1111 1 1) :uuid "xyz"}) => 123
             (now) => (date-time 1111 1 1)
-            (uuid) => "xyz"
-            )
-
-  )
+            (uuid) => "xyz"))
 
 
 
