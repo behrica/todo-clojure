@@ -1,4 +1,4 @@
-(ns todo.dbschema
+(ns todo.korma.dbschema
   (:require
     [clj-dbcp.core        :as cp]
     [clj-liquibase.change :as ch]

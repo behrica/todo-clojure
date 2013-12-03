@@ -18,6 +18,7 @@
                  [midje "1.6-beta1"]
                  ;[org.apache.httpcomponents/httpcore "4.2.3"]
                   [clj-http "0.7.7"]
+                  [com.ashafa/clutch "0.4.0-RC1"]
 
 		 [lein-light-nrepl "0.0.9"] [org.clojure/tools.reader "0.7.10"]
                  ]
@@ -31,7 +32,7 @@
             ]
   :profiles {:uberjar {:aot :all}}
   :ring {:handler todo.web/app}
-  :protractor {:init todo.db/init-db
+  :protractor {:init todo.korma.db/init-db
                :chromedriver "/home/carsten/bin/chromedriver"
                :protractorconfig "resources/protractor_conf.js"
                }

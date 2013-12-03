@@ -1,6 +1,7 @@
 (ns todo.db-test
   (:require [clojure.test :refer :all ]
-            [todo.db :refer :all ]
+            [todo.korma.db :refer :all ]
+            [todo.repository :refer :all ]
             [korma.db :refer :all ]
             [korma.core :refer :all ]
             [todo.core :refer :all ]
@@ -14,7 +15,7 @@
 
 (with-state-changes [(before :facts (delete TODOEVENT))]
                     (fact "adding a todo result in one row in todoevent table"
-                          (add-todo (new-todo "newTitle" a-date (UUID/fromString "59ac5f78-e691-4351-9652-11d6820cdc09"))) => number?
+                          (add-todo-created-event (new-todo "newTitle" a-date (UUID/fromString "59ac5f78-e691-4351-9652-11d6820cdc09"))) => number?
                           (let [query-result (exec-raw ["SELECT * FROM TODOEVENT"] :results)
                                 first-event (first query-result)
                                 ]
@@ -42,7 +43,7 @@
                              )]
 
                     (fact "delete todos adds delete event"
-                          (delete-todo 1)
+                          (add-todo-deleted-event 1)
                           (select-keys (second (exec-raw ["SELECT * FROM TODOEVENT"] :results)) [:TYPE :EDN]) => {:TYPE "todo-deleted" :EDN "1" }
                           ))
 

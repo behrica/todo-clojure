@@ -1,8 +1,8 @@
 (ns todo.web-test
   (:require [clojure.test :refer :all ]
               [todo.core :refer :all]
+              [todo.korma.db :refer :all]
               [todo.web :refer :all]
-              [todo.db :refer :all]
               [ring.adapter.jetty :refer :all :as jetty]
               [clj-http.client :as client]
               [clj-time.core :refer [date-time now]]
@@ -27,7 +27,7 @@
 
 (fact "should call add-todo when /rest/todo is requested"
   (:body (todo.web/handler {:request-method :post :uri "/rest/todos" :params {:title "t123"}})) => "123"
-  (provided (todo.db/add-todo { :title "t123", :date (date-time 1111 1 1) :uuid "xyz"}) => 123
+  (provided (todo.korma.db/add-todo-created-event { :title "t123", :date (date-time 1111 1 1) :uuid "xyz"}) => 123
             (now) => (date-time 1111 1 1)
             (uuid) => "xyz"))
 

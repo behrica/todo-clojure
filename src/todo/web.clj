@@ -4,7 +4,7 @@
             [todo.core :refer :all]
             [ring.adapter.jetty :refer :all]
             [clj-json.core :as json]
-            [todo.db :refer :all ]
+            [todo.repository :refer :all ]
             [compojure.route :as route]
             [clj-time.core :refer [date-time now]]
             [clj-time.format :refer [unparse formatters]]
@@ -27,9 +27,9 @@
 
 (defroutes handler
   (GET "/rest/todos" []
-    (json-response (transform-todos (todo.db/todos))))
+    (json-response (transform-todos (todos))))
   (POST "/rest/todos" [title]
-    (json-response (todo.db/add-todo (new-todo title (now) (uuid))) 201 ))
+    (json-response (add-todo title) 201 ))
   (route/resources "/" )
   (route/not-found "404 Not Found")
 )
