@@ -16,19 +16,19 @@
 (defn- replace-todo [new-todo world]
   (conj (remove #(= (:uuid %) (:uuid new-todo)) world) new-todo))
 
-(defn- apply-event-to-world [event world]
-  (let [event-data (read-string (:EDN event))]
-    (condp = (:TYPE event)
-        "todo-created" (conj world event-data)
-        "todo-deleted" (remove #(= (:uuid %) event-data) world)
-        "todo-changed" (replace-todo event-data world))))
+(defn- apply-event-to-world [event-string world]
+  (let [event (read-string (:EDN event-string))]
+    (condp = (:TYPE event-string)
+        "todo-created" (conj world event)
+        "todo-deleted" (remove #(= (:uuid %) event) world)
+        "todo-changed" (replace-todo event world))))
 
 
 (defn- aggregate-todos [todo-events world]
   (if (empty? todo-events)
     world
-    (aggregate-todos (rest todo-events)
-                     (apply-event-to-world (first todo-events) world))))
+    (recur (rest todo-events)
+           (apply-event-to-world (first todo-events) world))))
 
 (defn todos []
   (aggregate-todos (find-todo-events) []))
